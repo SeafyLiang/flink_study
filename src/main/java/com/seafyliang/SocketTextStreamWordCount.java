@@ -51,6 +51,7 @@ public class SocketTextStreamWordCount {
 
 
     public static final class LineSplitter implements FlatMapFunction<String, Tuple2<String, Integer>> {
+        @Override
         public void flatMap(String s, Collector<Tuple2<String, Integer>> collector) {
             String[] tokens = s.toLowerCase().split("\\W+");
 
