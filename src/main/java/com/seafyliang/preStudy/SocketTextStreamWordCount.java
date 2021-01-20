@@ -1,5 +1,5 @@
-package com.seafyliang; /**
- * FileName: com.seafyliang.SocketTextStreamWordCount
+package com.seafyliang.preStudy; /**
+ * FileName: com.seafyliang.preStudy.SocketTextStreamWordCount
  * Author:   SeafyLiang
  * Date:     2020-12-24 14:34:16
  * Description: 测试flink统计单词个数
@@ -26,7 +26,7 @@ public class SocketTextStreamWordCount {
     public static void main(String[] args) throws Exception {
         //参数检查
         if (args.length != 2) {
-            System.err.println("USAGE:\ncom.seafyliang.SocketTextStreamWordCount <hostname> <port>");
+            System.err.println("USAGE:\ncom.seafyliang.preStudy.SocketTextStreamWordCount <hostname> <port>");
             return;
         }
 

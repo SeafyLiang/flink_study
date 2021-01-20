@@ -4,7 +4,7 @@
  * Date:     2020/12/24 下午2:35
  * Description: 批处理wordcount
  */
-package com.seafyliang;
+package com.seafyliang.preStudy;
 
 import org.apache.flink.api.common.functions.FlatMapFunction;
 import org.apache.flink.api.java.DataSet;

@@ -4,7 +4,7 @@
  * Date:     2020/12/24 下午3:43
  * Description: 流处理 wordCount
  */
-package com.seafyliang;
+package com.seafyliang.preStudy;
 
 import org.apache.flink.api.java.tuple.Tuple2;
 import org.apache.flink.api.java.utils.ParameterTool;
@@ -24,8 +24,12 @@ public class streamWordCount {
         // 创建流处理执行环境
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
 
+
         // 设置并行度
-        env.setParallelism(8);
+        env.setParallelism(1);
+
+        // 全局禁止任务合并
+        // env.disableOperatorChaining();
 
         // // 从文件中读取数据
         // String inputPath = "/Users/seafyliang/DEV/Code_projects/Java_projects/study_projects/flink_study/src/main/resources/hello.txt";
@@ -40,6 +44,8 @@ public class streamWordCount {
         // 从socket文本流读取数据
         DataStream<String> inputDataStream = env.socketTextStream(host, port);
 
+        // slotSharingGroup(String 共享组名) 共享组名默认为default
+
         // linux 命令行 nc -lk 7777
         // -l listen 监听
         // -k keep 保持
@@ -47,9 +53,9 @@ public class streamWordCount {
         // 用 parameter tool 工具从程序启动参数中提取配置项
 
         // 基于数据流进行转换计算
-        SingleOutputStreamOperator<Tuple2<String, Integer>> resultStream = inputDataStream.flatMap(new batchWordCount.MyFlatMapper())
+        SingleOutputStreamOperator<Tuple2<String, Integer>> resultStream = inputDataStream.flatMap(new batchWordCount.MyFlatMapper()).slotSharingGroup("green")
                 .keyBy(0)
-                .sum(1);
+                .sum(1).setParallelism(2).slotSharingGroup("red");
 
         resultStream.print();
 
