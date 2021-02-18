@@ -42,7 +42,7 @@ public class TransformTest8_Partition {
         KeyedStream<SensorReading, Tuple> keyedStream = dataStream.keyBy("id");
         // keyedStream.print("keyedStream");
 
-        // 3.global
+        // 3.global 全部放到下游第一个分区
         dataStream.global().print("global");
 
         env.execute();
